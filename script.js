@@ -11,7 +11,6 @@ const addBook = function addBookToLibrary() {
     let newBook = new Book(prompt('name'), prompt('author'), prompt('pages'), prompt('read'));
 
     myLibrary.push(newBook);
-    console.log(myLibrary);
 }
 
 const initializeScript = function initializeScript() {
@@ -22,3 +21,9 @@ const initializeScript = function initializeScript() {
 }
 
 initializeScript();
+
+myLibrary.push(new Book('book1', 'author1', '100', true));
+myLibrary.push(new Book('book2', 'author2', '105', true));
+myLibrary.push(new Book('book3', 'author3', '130', false));
+myLibrary.push(new Book('book4', 'author4', '120', false));
+myLibrary.push(new Book('book5', 'author5', '130', true));
