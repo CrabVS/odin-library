@@ -7,14 +7,72 @@ const Book = function Book(title, author, pages, read) {
     this.read = read;
 }
 
-const displayBookForm = function displayBookForm() {
-    
+const createFormListeners = function createFormButtonListeners() {
+    const addBtnEl = document.getElementById('addBtn');
+    const cancelBtnEl = document.getElementById('cancelBtn');
+
+    addBtnEl.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const bookName = document.querySelector('.form-group #name');
+        const bookAuthor = document.querySelector('.form-group #author');
+        const bookPages = document.querySelector('.form-group #pages');
+        const bookRead = document.querySelector('.form-group #read');
+        
+        addBook(bookName.value, bookAuthor.value, bookPages.value, bookRead.checked);
+
+        removeFormDisplay();
+    });
+
+    cancelBtnEl.addEventListener('click', () => {
+        removeFormDisplay();
+    })
 }
 
-const addBook = function addBookToLibrary() {
-    let newBook = new Book(prompt('name'), prompt('author'), prompt('pages'), prompt('read'));
+const displayBookForm = function displayBookForm() {
+    let formContainer = document.createElement('div');
+    formContainer.id = 'book-form-container';
+
+    formContainer.innerHTML =
+    `<form id="book-form">
+        <h3>Add Book</h3>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author">
+        </div>
+        <div class="form-group">
+            <label for="pages">Pages</label>
+            <input type="number" name="pages" id="pages" min="0">
+        </div>
+        <div class="form-group">
+            <label for="read">Read</label>
+            <input type="checkbox" name="read" id="read">
+        </div>
+        <div class="buttons-container">
+            <button type="submit" id="addBtn">Add Book</button>
+            <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+    </form>`
+
+    document.body.appendChild(formContainer);
+
+    createFormListeners();
+}
+
+const removeFormDisplay = function removeFormDisplay() {
+    const formDisplay = document.getElementById('book-form-container');
+    formDisplay.remove();
+}
+
+const addBook = function addBookToLibrary(bookName, bookAuthor, bookPages, bookRead) {
+    let newBook = new Book(bookName, bookAuthor, bookPages, bookRead);
 
     myLibrary.push(newBook);
+    displayBooks();
 }
 
 const createBookElement = function createBookElement(book) {
@@ -38,7 +96,13 @@ const createBookElement = function createBookElement(book) {
     return bookEl;
 }
 
+const removeBooks = function removeBooks() {
+    const libraryEl = document.getElementById('library');
+    libraryEl.innerHTML = ``;
+}
+
 const displayBooks = function displayBooksToPage() {
+    removeBooks();
     const libraryEl = document.getElementById('library');
     myLibrary.forEach(book => {
         let bookEl = createBookElement(book);
@@ -49,7 +113,7 @@ const displayBooks = function displayBooksToPage() {
 const initializeScript = function initializeScript() {
     const addBookBtn = document.getElementById('add-btn');
     addBookBtn.addEventListener('click', () => {
-        addBook();
+        displayBookForm();
     });
     displayBooks();
 }
