@@ -80,12 +80,13 @@ const removeBook = function removeBookFromLibrary(bookIndex) {
     displayBooks();
 }
 
-const addListenersToBook = function addListenersToBookButtons(bookEl, bookId) {
+const addListenersToBook = function addListenersToBookButtons(bookEl, bookId, book) {
     const readBtnEl = bookEl.querySelector('.change-read-btn');
     const removeBtnEl = bookEl.querySelector('.remove-book-btn');
 
     readBtnEl.addEventListener('click', () => {
-        console.log('read');
+        book.read = !book.read;
+        displayBooks();
     });
 
     removeBtnEl.addEventListener('click', () => {
@@ -116,7 +117,7 @@ const createBookElement = function createBookElement(book, id) {
     bookContent[1].textContent = book.pages;
     bookContent[2].textContent = book.read;
 
-    addListenersToBook(bookEl, bookId);
+    addListenersToBook(bookEl, bookId, book);
 
     return bookEl;
 }
