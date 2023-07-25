@@ -75,7 +75,26 @@ const addBook = function addBookToLibrary(bookName, bookAuthor, bookPages, bookR
     displayBooks();
 }
 
-const createBookElement = function createBookElement(book) {
+const removeBook = function removeBookFromLibrary(bookIndex) {
+    myLibrary.splice(bookIndex, 1);
+    displayBooks();
+}
+
+const addListenersToBook = function addListenersToBookButtons(bookEl, bookId) {
+    const readBtnEl = bookEl.querySelector('.change-read-btn');
+    const removeBtnEl = bookEl.querySelector('.remove-book-btn');
+
+    readBtnEl.addEventListener('click', () => {
+        console.log('read');
+    });
+
+    removeBtnEl.addEventListener('click', () => {
+        removeBook(bookId);
+    });
+}
+
+const createBookElement = function createBookElement(book, id) {
+    const bookId = id;
     const bookEl = document.createElement('div');
     bookEl.innerHTML = 
     `<div class="book">
@@ -83,6 +102,10 @@ const createBookElement = function createBookElement(book) {
         <h3>Author</h3> 
         <h3>Pages</h3>
         <h3>Read</h3>
+        <div class="book-buttons">
+            <button class="change-read-btn">Read</button>
+            <button class="remove-book-btn">Remove</button>
+        </div>
     </div>`
 
     let titleEl = bookEl.querySelector('h2');
@@ -92,6 +115,8 @@ const createBookElement = function createBookElement(book) {
     bookContent[0].textContent = book.author;
     bookContent[1].textContent = book.pages;
     bookContent[2].textContent = book.read;
+
+    addListenersToBook(bookEl, bookId);
 
     return bookEl;
 }
@@ -104,8 +129,8 @@ const removeBooks = function removeBooks() {
 const displayBooks = function displayBooksToPage() {
     removeBooks();
     const libraryEl = document.getElementById('library');
-    myLibrary.forEach(book => {
-        let bookEl = createBookElement(book);
+    myLibrary.forEach((book, index) => {
+        let bookEl = createBookElement(book, index);
         libraryEl.appendChild(bookEl);
     });
 }
