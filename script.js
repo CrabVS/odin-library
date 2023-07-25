@@ -1,10 +1,16 @@
 let myLibrary = [];
 
-const Book = function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
 }
 
 const createFormListeners = function createFormButtonListeners() {
@@ -85,7 +91,7 @@ const addListenersToBook = function addListenersToBookButtons(bookEl, bookId, bo
     const removeBtnEl = bookEl.querySelector('.remove-book-btn');
 
     readBtnEl.addEventListener('click', () => {
-        book.read = !book.read;
+        book.toggleRead();
         displayBooks();
     });
 
