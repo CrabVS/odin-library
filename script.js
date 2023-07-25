@@ -7,6 +7,10 @@ const Book = function Book(title, author, pages, read) {
     this.read = read;
 }
 
+const displayBookForm = function displayBookForm() {
+    
+}
+
 const addBook = function addBookToLibrary() {
     let newBook = new Book(prompt('name'), prompt('author'), prompt('pages'), prompt('read'));
 
