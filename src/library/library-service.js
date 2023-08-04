@@ -13,7 +13,6 @@ const getLibrary = function getLibrary() {
 
 const addBook = function addBookToLibrary(book) {
   myLibrary.push(book);
-  console.log(myLibrary);
 };
 
 const removeBook = function removeBookFromLibrary(bookId) {

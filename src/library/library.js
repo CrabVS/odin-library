@@ -91,6 +91,10 @@ const createFormListeners = function createFormButtonListeners() {
   });
 };
 
+const checkFormValidity = function checkFormValidity(inputName, inputAuthor, inputPages) {
+  return (inputName !== '' && inputAuthor !== '' && inputPages !== '');
+};
+
 const displayBookForm = function displayBookForm() {
   const formContainer = document.createElement('div');
   formContainer.id = 'book-form-container';
@@ -115,12 +119,21 @@ const displayBookForm = function displayBookForm() {
         <input type="checkbox" name="read" id="read">
     </div>
     <div class="buttons-container">
-        <button type="submit" id="addBtn">Add Book</button>
+        <button type="submit" id="addBtn" disabled>Add Book</button>
         <button type="button" id="cancelBtn">Cancel</button>
     </div>
   </form>`;
 
   document.body.appendChild(formContainer);
+
+  const addBtnEl = document.getElementById('addBtn');
+  const bookName = document.querySelector('.form-group #name');
+  const bookAuthor = document.querySelector('.form-group #author');
+  const bookPages = document.querySelector('.form-group #pages');
+
+  formContainer.addEventListener('keyup', () => {
+    addBtnEl.disabled = !checkFormValidity(bookName.value, bookAuthor.value, bookPages.value);
+  });
 
   createFormListeners();
 };
