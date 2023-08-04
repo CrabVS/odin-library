@@ -13,7 +13,7 @@
         "quotes": [
             "error",
             "single",
-            "backtick"
+            { "allowTemplateLiterals": true }
         ],
         "linebreak-style": ["error", "windows"]
     }
