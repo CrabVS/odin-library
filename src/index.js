@@ -1,3 +1,6 @@
+import './reset.css';
+import './style.css';
+
 let myLibrary = [];
 
 class Book {
